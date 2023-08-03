@@ -6,3 +6,6 @@ app.listen(3000, () => {
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to yarn");
 });
+app.get("/:id", (req, res) => {
+  res.status(200).send(`${req.params.id}`);
+});
