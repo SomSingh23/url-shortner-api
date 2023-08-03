@@ -1,0 +1,12 @@
+{
+  "name": "first_yarn",
+  "version": "1.0.0",
+  "description": "first yarn project",
+  "main": "index.js",
+  "author": "som singh lodhi",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
