@@ -7,5 +7,5 @@ app.get("/", (req, res) => {
   res.status(200).send("Welcome to yarn");
 });
 app.get("/:id", (req, res) => {
-  res.status(200).send(`${req.params.id}`);
+  res.redirect("https:github.com/somsingh23");
 });
