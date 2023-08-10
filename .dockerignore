@@ -1,0 +1,43 @@
+# Exclude node_modules directory
+node_modules
+
+# Exclude npm-debug.log files
+npm-debug.log
+
+# Exclude yarn.lock file
+yarn.lock
+
+# Exclude .git directory
+.git
+
+# Exclude .DS_Store files (macOS)
+.DS_Store
+
+
+
+# Exclude log files
+*.log
+
+# Exclude temporary files
+*.swp
+*.swo
+
+# Exclude build and distribution directories
+dist
+build
+
+# Exclude any editor-specific or IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Exclude test and coverage directories
+__tests__
+coverage
+
+# Exclude documentation and doc-related files
+doc
+docs
+*.md
+*.pdf
