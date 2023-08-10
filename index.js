@@ -40,7 +40,7 @@ app.get("/", async (req, res) => {
     res
       .status(400)
       .send(
-        "Request Format Must be like : http:localhost:5000?url=https://example.com"
+        `Request Format Must be like : ${process.env.link2}?url=https://example.com`
       );
   }
 });
