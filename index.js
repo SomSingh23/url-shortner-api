@@ -16,7 +16,7 @@ mongoose
   });
 let app = express();
 app.use(cors());
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
   console.log(`Listening on port ${process.env.PORT}...`);
 });
 app.get("/", async (req, res) => {
