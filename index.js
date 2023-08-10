@@ -29,13 +29,13 @@ app.get("/", async (req, res) => {
     let dataFound = await AddData.findOne({ originalUrl: url });
     if (dataFound) {
       console.log("data found already");
-      res.status(200).send(`localhost:5000/${dataFound.redirectUrl}`);
+      res.status(200).send(`${process.env.link2}${dataFound.redirectUrl}`);
       return;
     }
     let ____t = generateRandomString();
     let data = new AddData({ originalUrl: url, redirectUrl: ____t });
     await data.save();
-    res.status(200).send(`localhost:5000/${____t}`);
+    res.status(200).send(`${process.env.link2}${____t}`);
   } catch (err) {
     res
       .status(400)
