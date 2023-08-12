@@ -46,7 +46,7 @@ let template404 = `<!DOCTYPE html>
     <div class="container">
         <h1>404</h1>
         <p>Oops! The page you're looking for doesn't exist.</p>
-        <p>Return to <a href="https://som-745j.onrender.com/">Api</a>.</p>
+        <p>Return to <a href="https://som-745j.onrender.com/">API</a>.</p>
     </div>
 </body>
 </html>
