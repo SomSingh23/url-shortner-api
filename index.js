@@ -4,12 +4,14 @@ let generateRandomString = require("./random");
 let mongoose = require("mongoose");
 let AddData = require("./data");
 let cors = require("cors");
-
+let template404 = require("./error");
 mongoose.set("strictQuery", true);
 mongoose
   .connect(process.env.link)
   .then(() => {
-    console.log("Atlas Cloud is now connected");
+    console.log(
+      "Server has taken flight into the cloud, unlocking boundless potential."
+    );
   })
   .catch((err) => {
     console.log(err);
@@ -23,7 +25,7 @@ app.get("/", async (req, res) => {
   try {
     let { url } = req.query;
     if (url === null || url === "") {
-      res.status(404).send("Enter Proper Url");
+      res.status(404).send("Enter Proper URL");
       return;
     }
     let dataFound = await AddData.findOne({ originalUrl: url });
@@ -40,7 +42,7 @@ app.get("/", async (req, res) => {
     res
       .status(400)
       .send(
-        `Request Format Must be like : ${process.env.link2}?url=https://example.com`
+        `Request Format Must be like: ${process.env.link2}?url=https://example.com`
       );
   }
 });
@@ -53,8 +55,11 @@ app.get("/:url", async (req, res) => {
       res.redirect(foundData.originalUrl);
       return;
     }
-    res.status(400).send("Invalid URL");
+    res.status(404).send(template404);
   } catch (err) {
-    res.status(400).send("Url not found");
+    res.status(404).send(template404);
   }
+});
+app.get("*", (req, res) => {
+  res.status(404).send(template404);
 });
