@@ -46,20 +46,61 @@ app.get("/", async (req, res) => {
       );
   }
 });
-app.get("/:url", async (req, res) => {
+// app.get("/:url", async (req, res) => {
+//   try {
+//     let { url } = req.params;
+
+//     let foundData = await AddData.findOne({ redirectUrl: url });
+//     if (foundData) {
+//       res.redirect(foundData.originalUrl);
+//       return;
+//     }
+//     res.status(404).send(template404);
+//   } catch (err) {
+//     res.status(404).send(template404);
+//   }
+// });
+// Sugested changes follow
+app.get("/:url?", async (req, res) => {
   try {
     let { url } = req.params;
-
+    let {new_url} = req.query;
     let foundData = await AddData.findOne({ redirectUrl: url });
     if (foundData) {
       res.redirect(foundData.originalUrl);
       return;
     }
+    else if(new_url){
+      try{
+    let dataFound = await AddData.findOne({ originalUrl: new_url });
+    if (dataFound) {
+      console.log("data found already");
+      res.status(200).send(`${process.env.link2}${dataFound.redirectUrl}`);
+      return;
+    }
+    let ____t = generateRandomString();
+    let data = new AddData({ originalUrl: new_url, redirectUrl: ____t });
+    await data.save();
+    res.status(200).send(`${process.env.link2}${____t}`);
+    return;
+  } catch (err) {
+    res
+      .status(400)
+      .send(
+        `Request Format Must be like: ${process.env.link2}?url=https://example.com`
+      );
+      return;
+  }
+
+    }
     res.status(404).send(template404);
+    return;
   } catch (err) {
     res.status(404).send(template404);
+    return;
   }
 });
+
 app.get("*", (req, res) => {
   res.status(404).send(template404);
 });
