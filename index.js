@@ -25,19 +25,21 @@ app.get("/", async (req, res) => {
   try {
     let { url } = req.query;
     if (url === null || url === "") {
-      res.status(404).send("Enter Proper URL");
+      res.status(400).send("Enter Proper URL");
       return;
     }
     let dataFound = await AddData.findOne({ originalUrl: url });
     if (dataFound) {
       console.log("data found already");
-      res.status(200).send(`${process.env.link2}${dataFound.redirectUrl}`);
+      res
+        .status(200)
+        .json({ shortUrl: `${process.env.link2}${dataFound.redirectUrl}` });
       return;
     }
     let ____t = generateRandomString();
     let data = new AddData({ originalUrl: url, redirectUrl: ____t });
     await data.save();
-    res.status(200).send(`${process.env.link2}${____t}`);
+    res.status(200).json({ shortUrl: `${process.env.link2}${____t}` });
   } catch (err) {
     res
       .status(400)
