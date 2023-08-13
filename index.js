@@ -24,6 +24,7 @@ app.listen(process.env.PORT, () => {
 app.get("/", async (req, res) => {
   try {
     let { url } = req.query;
+    url = url.trim(); // to remove any leading whitespace :)
     if (url === null || url === "") {
       res.status(400).send("Enter Proper URL");
       return;
