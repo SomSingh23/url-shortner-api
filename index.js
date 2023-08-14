@@ -49,16 +49,33 @@ app.get("/", async (req, res) => {
       );
   }
 });
-app.get("/:url", async (req, res) => {
+// changing the params from url to id and adding url query to the request object 
+app.get("/:id?", async (req, res) => {
   try {
-    let { url } = req.params;
-
-    let foundData = await AddData.findOne({ redirectUrl: url });
+    let { id } = req.params;
+    let {url} = req.query;
+    let foundData = await AddData.findOne({ redirectUrl: id });
     if (foundData) {
       res.redirect(foundData.originalUrl);
       return;
     }
+    else if(url){
+    let dataFound = await AddData.findOne({ originalUrl: url });
+    if (dataFound) {
+      console.log("data found already");
+      res
+        .status(200)
+        .json({ shortUrl: `${process.env.link2}${dataFound.redirectUrl}` });
+      return;
+    }
+    let ____t = generateRandomString();
+    let data = new AddData({ originalUrl: url, redirectUrl: ____t });
+    await data.save();
+    res.status(200).json({ shortUrl: `${process.env.link2}${____t}` });
+    return;
+    }
     res.status(404).send(template404);
+    return;
   } catch (err) {
     res.status(404).send(template404);
   }
