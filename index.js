@@ -17,7 +17,7 @@ mongoose
     console.log(err);
   });
 let app = express();
-app.use(cors({ origin: "https://somsingh23.github.io/URL_shortener" }));
+app.use(cors({ origin: "https://somsingh23.github.io" }));
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}...`);
 });
