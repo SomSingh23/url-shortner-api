@@ -49,7 +49,6 @@ app.get("/", async (req, res) => {
       );
   }
 });
-// changing the params from url to id and adding url query to the request object
 app.get("/:id", async (req, res) => {
   try {
     let { id } = req.params;
