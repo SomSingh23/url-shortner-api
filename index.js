@@ -3,6 +3,7 @@ let express = require("express");
 let generateRandomString = require("./random");
 let mongoose = require("mongoose");
 let AddData = require("./data");
+let Ip = require("./ip");
 let cors = require("cors");
 let template404 = require("./error");
 mongoose.set("strictQuery", true);
@@ -23,6 +24,7 @@ app.listen(process.env.PORT, () => {
 });
 app.get("/", async (req, res) => {
   try {
+    await Ip.create({ ip: req.ip });
     let { url } = req.query;
     url = url.trim(); // to remove any leading whitespace :)
     if (url === null || url === "") {
