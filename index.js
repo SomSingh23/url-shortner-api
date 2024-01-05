@@ -4,6 +4,7 @@ let generateRandomString = require("./random");
 let mongoose = require("mongoose");
 let AddData = require("./data");
 let cors = require("cors");
+let checkUrl = require("./inputValidation");
 let template404 = require("./error");
 mongoose.set("strictQuery", true);
 mongoose
@@ -25,8 +26,8 @@ app.get("/", async (req, res) => {
   try {
     let { url } = req.query;
     url = url.trim(); // to remove any leading whitespace :)
-    if (url === null || url === "") {
-      res.status(400).send("Enter Proper URL");
+    if (!checkUrl(url)) {
+      res.status(400).send("Invalid URL");
       return;
     }
     let dataFound = await AddData.findOne({ originalUrl: url });
